@@ -9,7 +9,7 @@ class ArticleTeaser extends Component {
     const { id, title, created_date: createdDate, handleTitleClick } = this.props;
     return (
       <div>
-        <a onClick={ () => handleTitleClick(id) }>{ title }</a>
+        <a href="/" onClick={ (e) =>{ e.preventDefault();  handleTitleClick(id); } }>{ title }</a>
         <p>{ createdDate }</p>
       </div>
     )

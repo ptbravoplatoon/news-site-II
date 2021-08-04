@@ -1,118 +1,104 @@
-# News Site Part II
+# Overview
+In this challenge, we will focus on creating three components that we will later use as we create a news site similar to [Reddit](https://www.reddit.com/).
 
 ## Initial Setup
+To start, create a new create-react-app project from your terminal: `npx create-react-app news-site-I`
+In your new project, copy over the `components` and `data` directories under `src/` and replace the boilerplate `App.js` with the one given here.
 
-Each day of the News Site app will build on the previous day's code, starting with the class-based components version first.
+Each of the three components listed below has been stubbed out - your mission is to create the content that the component should `render`, and handle the `props` that are being passed in appropriately. For the first pass of this challenge, all components will be class-based.
 
-Today, we are going to create 1 new component, 2 pages, and a routing system to build up News Site II. A large majority of this code has already been written for you either here or in the previous day's code. We'll be moving quite a bit of code from one place to another.
-
-Your choice: for this challenge, we have provided the solutions to `news-site-i` in the starting code here. It is up to you whether you would like to use our code or your own code from yesterday.
-
-1. Create a new React app from your terminal: `npx create-react-app news-site-II`
-
-2. Copy over the `components`, `data`, and `pages` directories from this repo to the `src/` of your new React project. If you would like to use your own code from `news-site-I`, replace the following files in the `components` directories with your files from `news-site-I`: `Article/Article.js`, `ArticleTeaser/ArticleTeaser.js`, and `AppNav/AppNav.js`. (Reminder: make sure you're copying over your class-based components first.)
-
-3. Copy over the `App.js` from either this repo or your `news-site-I` into your new `news-site-II` project.
-
-4. Later today, we will be adding some styling. There are many libraries out there but the one we are going to use is [reactstrap](https://reactstrap.github.io/). Reactstrap is a component library for React that uses Bootstrap styles under the hood. We need to install both `bootstrap` and `reactstrap`.
-```sh
-$ npm install bootstrap
-$ npm install reactstrap
-```
-
-4. Add `import 'bootstrap/dist/css/bootstrap.min.css'` to your `src/index.js`. We'll come back to style this app a bit later - at this point, start up your new app. Your code should operate exactly like it did with `news-site-I`. **Do not move forward unless it's the same.**
-
-5. At the moment, the `<a>` links in your `ArticleTeaser` component appends a `#` to the URL when clicked. This can cause a problem when handling route/url changes later today. Let's modify the `onClick` event handler to alleviate this changing `onClick` to this:
-```javascript
-onClick={(event) => {
-  event.preventDefault();
-  this.props.handleTitleClick(this.props.id);
-}}
-```
-`event.preventDefault()` is the key line here - this will prevent the default behavior of the `<a>` tag. This default behavior is what's responsible for adding this hashtag to the URL.
+Before diving in, it may be helpful to inspect the files in the `data` directory so you know the shape of the data your app will be handling.
 
 
-## Component I: ArticleList
-We have a new component today that has been stubbed out: the `ArticleList` component. Instead of showing a random article, we want our homepage to show a list of article teasers. Your mission is to handle the `props` that are being passed in appropriately and create the content that the component should render.
+## Component I: ArticleTeaser
+The `ArticleTeaser` component should accept the following `props` from `App.js`:
+1. `id` - a number
+2. `title` - a string
+3. `created_date` - a string
+4. `handleTitleClick` - a event handling function
 
-Props for `ArticleList`:
-1. `articles` - an array of article objects
-2. `handleTitleClick` - a function
+All of these `props` will always be passed in.
 
-The `ArticleList` component will receive an array of `articles` (if you want a refresher on the data shape, take a look at `src/data/news.json`). `map` over this array and create an array of `ArticleTeaser`s. When you `map` over the `articles` array, it's good to use arrow functions. Take a look at what your `ArticleTeaser` component requires (you may want to utilize the [spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax)):
-- id (how can you use the indexes of the articles array to act as IDs?)
-- title
-- created_date
-- handleTitleClick
+The `ArticleTeaser` component should:
+1. Display the `title` inside of an `<a>` tag.
+2. When the `title` `<a>` tag is clicked, it should call `this.props.handleTitleClick(this.props.id);`. Will arrow functions be useful here?
+3. Display the `created_date` in a `<p>` tag.
 
-Don't worry about this not doing anything yet - we will wire it up in the next section.
 
-## React Router
-[React Router](https://reacttraining.com/react-router/web/guides/philosophy) is a popular open source library that's used to control paging in a single page app. Using this library, you can load `component`s based on URL paths. For example, you can configure React Router to load ComponentX when the URL `http://localhost:3000/componentx` is requested.
+## Component II: Article
+In `App.js`, you'll notice that when the `Article` component is rendered, we pass `{...article}` to the component. This is known as the spread syntax. You can read more about it [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax). Rather than passing the entire `article` object, we are spreading its properties to be passed down via `props`.
+Therefore, the `Article` component should accept the following `props`:
+1. `title` - a string
+2. `created_date` - a string
+3. `abstract` - a string
+4. `byline` - a string (optional)
+5. `image` - a url string (optional)
 
-To utilize React Router, let's install:
-```sh
-$ npm install react-router-dom --save
-```
+The `title`, `abstract`, and `created_date` `props` will always contain values. `image` and `byline` may be set, but they may also be null. Be sure to account for this.
 
-In `App.js`, bring in the necessary libraries from the package you just installed:
+The `Article` component should:
+1. Display the `title` inside of an `<h1>` tag.
+2. Display the `created_date` in a `<p>` tag.
+3. Display the `byline` (if it exists) in an `<h2>` tag.
+4. Display the `image` (if it exists) in an `<img>` tag (the value of `image` should be set to the `src` attribute of the `<img>` tag).
+5. Display the `abstract` inside of a `<p>` tag.
+
+#### Sidenote: Conditional rendering in React
+How do I only render something if the data exists? There are several ways we can handle this in React. Here we will explore three common options:
+
+**Option 1: `&&`**
 
 ```javascript
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+// in the render
+<ParentComponent>
+  {dataExists && <ChildComponent>}
+</ParentComponent>
 ```
+Explanation: If there is just one piece of data we're checking for, we can do a quick existence check which will coerce the data to a boolean value `true` if the data does exist and then render the component/element that follows `&&`. If the data doesn't exist, it will be coerced to a boolean value `false` and will not render the child component/element.
 
-Let's rewrite our `render`:
+**Option 2: Create a helper render function**
+
 ```javascript
-render() {
-  const { navItems } = this.state
+renderIfDataExists = () => {
+  if (dataExists) {
+    return <ChildComponent />
+  }
+};
 
-  return (
-    <div>
-      <h1>AppNav Component</h1>
-      <hr />
-      <AppNav navItems={navItems} handleNavClick={(clickedItem) => console.log(clickedItem)} />
-      <Router>
-        <div>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/articles/:articleID" component={ArticlePage} />
-        </div>
-      </Router>
-    </div>
-  );
+// in the render
+<ParentComponent>
+  {this.renderIfDataExists()}
+</ParentComponent>
+```
+Explanation: This is a common pattern for rendering that involves more complex logic. For example, if our `dataExists` check was looking for multiple pieces of data, we might want to extract it out into this helper function.
+(Also note that the above code snippet assumes a class-based React component. What would be different if it were written in a functional component?)
+
+**Option 3: Use a ternary operator**
+```javascript
+<ParentComponent>
+  { dataExists ? <ChildComponent /> : '' }
+</ParentComponent>
+```
+Explanation: This is a good option to use if you are choosing between two different components/elements to render, but you can technically just render an empty string or `null` as seen above.
+
+## Component III: AppNav
+The `AppNav` component should accept the following `props`:
+1. `navItems` - an array of navItem objects.
+2. `handleNavClick` - a function.
+
+The `AppNav` component should return a `<nav>` component that contains `<a>`'s as children - one for every item in the `this.props.navItems` array.
+
+The AppNav component should:
+1) Map through `this.props.navItems` to create an array of `<a>` elements. The objects within `this.props.navItems` look something like this:
+```
+{
+  label: "NYREGION",
+  value: "nyregion"
 }
 ```
-Here we are wrapping our app in a `Router` and using `Route` components, which will look for an exact URL path match and render the compenent you specify for that path. Because we think of these components as different pages in our app, we've kept them in a `Pages` directory and named them accordingly.
+When transforming/mapping the `nav` item objects in `this.props.navItems` into an array of `<a>` tags, you'll want to use the `label` property (displayed in the example above) as the text that appears on screen. At the same time, you will want to attach an event handler to each `<a>`'s `onClick` event. `onClick` should call `this.props.handleNavClick`, and pass the 'value' property from the `nav` item object.
 
-With this rewrite, we are no longer utilizing `this.state.article` or the imported `ArticleTeaser` and `Article` components in `App.js`. Go ahead and delete those imports and state instantiation.
+**You are done when all of your data is displayed and your `onClick` events are firing for your AppNav links and your ArticleTeaser links (i.e. you should see the `console.log`s)**
 
-At this time, you may see a number of warnings and errors - how do you bring in `HomePage` and `ArticlePage` (found in `src/pages/`)?
-
-Once the `HomePage` component is succesfully brought in, it's about 60% complete - once you've defined your route - and assuming you successfully built the `ArticleList` `component` in the step above - you should see a full list of articles at the `/` path (`http://localhost:3000/`).
-
-You also should be able to see the `ArticlePage` `component` (`src/pages/ArticlePage`) by navigating to `http://localhost:3000/articles/1`. It should simply have the NavBar at the top and the words `Article Page` (boilerplate).
-
-If you are seeing the behavior above, you may continue to the next step. If not, ask your classmates or instructional staff for help.
-
-## HomePage Component
-
-As mentioned above, the `HomePage` is largely complete - it simply renders the `ArticleList` `component`. The one piece of functionality you need to complete is the `handleTitleClick` function being passed into the `ArticleList` `component`. Ultimately, this function should trigger a page change. React Router automatically passes a series of routing-related props to the `HomePage` `component`. One of these is `this.props.history`. You can trigger a page change by calling `this.props.history.push(NEWURL)`. Ultimately, this url should look something like this: `this.props.history.push(/articles/${articleID})`
-
-`articleID` corresponds to the index of an item in the articles array, and is a parameter already being passed into this function. You should be able to click links in your homepage and be able to hit different urls that correspond with the article that you clicked.
-
-## ArticlePage Component
-The `ArticlePage` component should render the `Article` component, and provide the necessary props to the child component. If you remember, `Article` accepts a variety of props from a single article object in `src/data/news.json` array. In order to determine the array object to use, you can once again use some React Router functionality that's automatically being passed into the `ArticlePage` component. React Router provides us with access to the URL params via the `props` object. The index you'll want to target within the articles array will be contained within `this.props.match.params.articleID` - this variable corresponds to [ARTICLEID] in this URL: `http://localhost:3000/article/[ARTICLEID]`
-
-Write the code necessary to find the news article and pass it into the `Article` component and render it all out on the screen. The Article page should render the article's:
-- Title
-- Created Date
-- Byline
-- Image (Note: Someone changed the data structure that we are receiving for news articles. Look inside the JSON and see if you can find the URL for the images. Then, update your code to account for this)
-- Abstract
-
-As of right now, keep in mind that people are able to actually hit `/articles/0`, which is not REST-ful - all IDs should start at 1. How can we alter the code to both get the correct article in the JSON file and be REST-ful?
-
-## Style with Bootstrap
-Look into [this resource](https://reactstrap.github.io/components/navbar/) to style everything using Reactstrap! Let's make the Nav bar, the list of ArticleTeasers, and the Articles look nice.
-
-## Refactor into Functional Components
-Just as you did with `news-site-I`, open a new branch off of your `news-site-II` `master` called `functional-version` and refactor your components to make them functional. (You may have noticed our starting code for today included the functional solutions commented out in the components from `news-site-I` -- feel free to use these or your own.)
+## Now make it Functional!
+After you've committed your changes, open a new branch called `functional-version`. In this new branch, refactor your class-based components into functional ones. This may seem silly, but this is a large part of working in a real legacy React codebase, so understanding how to do these sorts of refactors is critical. Be sure to have BOTH versions of your work -- `master` as class-based and `functional-version` as functional. We will continue work on both in the future.

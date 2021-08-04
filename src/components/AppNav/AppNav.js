@@ -6,8 +6,8 @@ class AppNav extends Component {
 
     return (
       <nav>
-        {navItems.map((navItem) =>
-          <a href="#" onClick={ () => handleNavClick(navItem.value)} >
+        {navItems.map((navItem,index) =>
+          <a key={index} href="/" onClick={ (e) =>{ e.preventDefault();  handleNavClick(navItem.value)}} >
             {navItem.label} |
           </a>
         )}
