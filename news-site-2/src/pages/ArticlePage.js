@@ -1,21 +1,17 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import Article from '../components/Article/Article.js'
 import News from '../data/news.json';
 
-class ArticlePage extends Component {
+const ArticlePage = (props) => {
 
-  state = {
-    dispArt: News[this.props.match.params.articleID],
-  }
+  const [dispArt, setDispArt] = useState(News[props.match.params.articleID])
 
-  render() {
-    return (
-      <Fragment>
-        <div>Article Page</div>
-        <Article article={this.state.dispArt} />
-      </Fragment>
-    );
-  }
-}
+  return (
+    <Fragment>
+      <div>Article Page</div>
+      <Article article={dispArt} />
+    </Fragment>
+  );
+};
 
 export default ArticlePage;

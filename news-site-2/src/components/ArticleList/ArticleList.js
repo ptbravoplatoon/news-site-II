@@ -1,25 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ArticleTeaser from '../ArticleTeaser/ArticleTeaser.js'
+import { ListGroup, ListGroupItem } from 'reactstrap'
 
-class ArticleList extends Component {
+const ArticleList = (props) => {
 
-  printTeasers = () => {
-    return this.props.articles.map( (article, id) => {
-      return <ArticleTeaser
+  const printTeasers = () => {
+    return props.articles.map( (article, id) => {
+      return <ListGroupItem>
+        <ArticleTeaser
         id={id}
         title={article.title}
         created_date={article.created_date}
-        handleTitleClick={(articleID) => {this.props.handleTitleClick(articleID)}} />
+        handleTitleClick={(articleID) => {props.handleTitleClick(articleID)}} />
+        </ListGroupItem>
     })
   }
 
-  render() {
-    return (
-      <div>
-        {this.printTeasers()}
-      </div>
-    );
-  }
-}
+  return (
+    <ListGroup>
+      {printTeasers()}
+    </ListGroup>
+  );
+};
 
 export default ArticleList;
