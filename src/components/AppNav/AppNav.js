@@ -17,15 +17,7 @@ class AppNav extends Component {
     const { navItems, handleNavClick } = this.props;
       return (
       <div>
-    {/* <nav>
-        {navItems.map((navItem,index) =>
-          <a key={index} href="/" onClick={ (e) =>{ e.preventDefault();  handleNavClick(navItem.value)}} >
-            {navItem.label} |
-          </a>
-        )}
-        </nav>
-       */}
-      <Navbar color="faded" light>
+    <Navbar color="faded" light>
         <NavbarBrand href="/"   className="mr-auto">Menu</NavbarBrand>
         <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
         <Collapse isOpen={!this.state.collapsed} navbar>
