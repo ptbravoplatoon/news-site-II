@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import Article from '../components/Article/Article.js'
 import News from '../data/news.json';
-
+import navItems from '../data/navItems.json';
+import AppNav from '../components/AppNav/AppNav.js';
 class ArticlePage extends Component {
   constructor(props) {
     super(props);
     const index = this.props.match.params.articleID;
     const article = News[index];
     this.state = {
+      navItems: navItems,
       article: {
         id: index,
         title: article.title,
@@ -19,7 +21,9 @@ class ArticlePage extends Component {
     }
   }
     render() {
+      const { navItems } = this.state
       return (<>
+      <AppNav navItems={navItems} handleNavClick={(clickedItem) => {this.props.history.push("/"+clickedItem)}} />
       <div>Article Page</div>
       <Article 
         title ={this.state.article.title}

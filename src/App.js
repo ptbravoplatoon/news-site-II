@@ -20,7 +20,9 @@ class App extends Component {
   
   
     return (
-      <div>
+      <div class="container">
+        <div class="row">
+      <div class="col-md-12">
         <h1>AppNav Component</h1>
         <hr />
         
@@ -31,6 +33,8 @@ class App extends Component {
           </div>
         </Router>
       </div>
+      </div>
+       </div>
     );
   }
 }

@@ -5,7 +5,7 @@ class ArticleList extends Component {
     const {articles,handleTitleClick} = this.props;
     return (
       <>
-      {articles.map((obj,index)=>(
+            {articles.map((obj,index)=>(
           <ArticleTeaser 
           key={index}
             id={index} 
@@ -14,6 +14,7 @@ class ArticleList extends Component {
             handleTitleClick = {handleTitleClick}
             />
       ))}
+    
       </>
     );
   }
