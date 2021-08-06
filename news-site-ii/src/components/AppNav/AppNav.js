@@ -9,25 +9,13 @@ import {
   NavLink,
 } from 'reactstrap';
 
-class AppNav extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      isOpen: false,
-    }
-  }
-  setIsOpen(openState){
-    let newState = this.state;
-    newState.isOpen = openState;
-    this.setState(newState);
-  }
-  render() {
-    const isOpen = this.state.isOpen;
-    const toggle = () => this.setIsOpen(!isOpen);
+function AppNav(props) {
+    const [isOpen, setIsOpen] = useState(false);
+    const toggle = () => setIsOpen(!isOpen);
     let i = 0;
 
-    const items = this.props.navItems.map((x) => {
-      let item = (<NavItem key={i} onClick={() => this.props.handleNavClick(x.value)}>
+    const items = props.navItems.map((x) => {
+      let item = (<NavItem key={i} onClick={() => props.handleNavClick(x.value)}>
         <NavLink>{x.label}</NavLink>
         </NavItem>);
       i++;
@@ -45,7 +33,6 @@ class AppNav extends Component {
         </Collapse>
       </Navbar>
     )
-  }
 }
 
 export default AppNav;
