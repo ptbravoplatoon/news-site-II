@@ -3,8 +3,10 @@ import News from './data/news.json';
 import navItems from './data/navItems.json';
 import './App.css';
 import AppNav from './components/AppNav/AppNav.js';
-import ArticleTeaser from './components/ArticleTeaser/ArticleTeaser.js'
-import Article from './components/Article/Article.js'
+import HomePage from './pages/HomePage'
+import ArticlePage from './pages/ArticlePage'
+import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom';
+
 
 class App extends Component {
   constructor(props) {
@@ -26,27 +28,19 @@ class App extends Component {
   }
 
   render() {
-    const { article, navItems } = this.state
-
+    const { navItems } = this.state
+  
     return (
       <div>
         <h1>AppNav Component</h1>
         <hr />
-
-        <AppNav navItems={navItems} handleNavClick={(clickedItem) => { console.log(clickedItem) }} />
-
-        <h1>ArticleTeaser Component</h1>
-        <hr />
-
-        <ArticleTeaser
-          id={article.id}
-          title={article.title}
-          created_date={article.created_date}
-          handleTitleClick={(articleID) => { console.log(articleID) }} />
-
-        <h1>Article Component</h1>
-        <hr />
-        <Article {...article} />
+        <AppNav navItems={navItems} handleNavClick={(clickedItem) => console.log(clickedItem)} />
+        <Router>
+          <div>
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/articles/:articleID" component={ArticlePage} />
+          </div>
+        </Router>
       </div>
     );
   }
