@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { ListGroup, ListGroupItem } from 'reactstrap'
 
 class ArticleTeaser extends Component {
   render() {
@@ -8,10 +9,14 @@ class ArticleTeaser extends Component {
     */
     const { id, title, created_date: createdDate, handleTitleClick } = this.props;
     return (
-      <div>
-        <a onClick={ () => handleTitleClick(id) }>{ title }</a>
-        <p>{ createdDate }</p>
-      </div>
+      <ListGroup>
+        <ListGroupItem>
+          <a onClick={ (event) => {
+            event.preventDefault();
+            handleTitleClick(id) }}>{ title }</a>
+          <p>{ createdDate }</p>
+        </ListGroupItem>
+      </ListGroup>
     )
   }
 }
