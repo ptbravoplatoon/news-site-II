@@ -7,9 +7,13 @@ class ArticleTeaser extends Component {
         a new variable called createdDate
     */
     const { id, title, created_date: createdDate, handleTitleClick } = this.props;
+
     return (
       <div>
-        <a onClick={ () => handleTitleClick(id) }>{ title }</a>
+        <a href="#" onClick={(event) => {
+          event.preventDefault();
+          handleTitleClick(id) }}
+        >{ title }</a>
         <p>{ createdDate }</p>
       </div>
     )
@@ -23,7 +27,7 @@ export default ArticleTeaser;
 // function ArticleTeaser({ id, title, created_date: createdDate, handleTitleClick }) {
 //   return (
 //     <div>
-//       <a onClick={ () => handleTitleClick(id) }>{ title }</a>
+//       <a href="#" onClick={ () => handleTitleClick(id) }>{ title }</a>
 //       <p>{ createdDate }</p>
 //     </div>
 //   );
