@@ -11,19 +11,9 @@ import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom';
 class App extends Component {
   constructor(props) {
     super(props);
-    const randomArticleIndex = Math.floor(Math.random() * News.length);
-    const randomArticle = News[randomArticleIndex];
 
     this.state = {
       navItems: navItems,
-      article: {
-        id: randomArticleIndex,
-        title: randomArticle.title,
-        abstract: randomArticle.abstract,
-        byline: randomArticle.byline,
-        image: randomArticle.multimedia.length ? randomArticle.multimedia[0].url : null,
-        created_date: randomArticle.created_date
-      }
     }
   }
 

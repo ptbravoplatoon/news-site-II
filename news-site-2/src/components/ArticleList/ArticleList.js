@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import ArticleTeaser from '../ArticleTeaser/ArticleTeaser.js'
+import {ListGroup} from 'react-bootstrap'
 
 class ArticleList extends Component {
 
   displayTeasers = () => {
     return this.props.articles.map( (article, id) => {
+      const restfulID = id + 1
       return <ArticleTeaser
-        id={id}
+        id={restfulID}
         title={article.title}
         created_date={article.created_date}
         handleTitleClick={(articleID) => {this.props.handleTitleClick(articleID)}} />
@@ -16,7 +18,9 @@ class ArticleList extends Component {
   render() {
     return (
       <div>
-        {this.displayTeasers()}
+        <ListGroup variant="flush">
+          <ListGroup.Item>{this.displayTeasers()}</ListGroup.Item>
+        </ListGroup>
       </div>
     );
   }
