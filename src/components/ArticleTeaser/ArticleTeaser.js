@@ -8,10 +8,18 @@ class ArticleTeaser extends Component {
     */
     const { id, title, created_date: createdDate, handleTitleClick } = this.props;
     return (
-      <div>
-        <a onClick={ () => handleTitleClick(id) }>{ title }</a>
-        <p>{ createdDate }</p>
-      </div>
+      <>
+      {/* printing an article with title, date, id */}
+       <h1><a href="/" onClick={ (e) =>{ e.preventDefault();  handleTitleClick(id); } }>{ title }</a></h1>
+        <p><strong>Created Date : </strong>{ createdDate } </p>
+        <div>
+          {/* creating onclick button prevents default button action from rendering */}
+            <div class="more label"><a href="/" class="btn btn-primary" onClick={ (e) =>{ e.preventDefault();  handleTitleClick(id); } } >Read more</a></div> 
+              
+        </div> 
+        <div class="clear"></div>
+        <hr></hr>
+      </>
     )
   }
 }
