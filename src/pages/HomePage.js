@@ -15,7 +15,9 @@ class HomePage extends Component {
     const { navItems } = this.state
     return (
       <div>
+        {/*creating a new Nav menu and pushing new url to browser without page reload */}
         <AppNav navItems={navItems} handleNavClick={(clickedItem) => {this.props.history.push("/"+clickedItem)}} />
+        {/* pushing new url to the browser  without page reload */}
         <ArticleList articles={News} handleTitleClick={(articleID) =>{this.props.history.push('/articles/'+articleID);} } />
       </div>
     );

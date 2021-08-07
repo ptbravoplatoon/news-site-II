@@ -25,6 +25,7 @@ class ArticlePage extends Component {
       return (<>
       <AppNav navItems={navItems} handleNavClick={(clickedItem) => {this.props.history.push("/"+clickedItem)}} />
       <div>Article Page</div>
+      {/* printing a single article */}
       <Article 
         title ={this.state.article.title}
         created_date = {this.state.article.created_date}

@@ -7,10 +7,12 @@ class Article extends Component {
       <>
       <div class="row">
       <div class="col-md-2">
+        {/* if image is null then image will not render */}
             { image && <img src={ image } alt=""/> }
       </div>
   		<div class="col-md-10">
     		<h4 class="media-heading">{title}</h4>
+        {/* if byline is null then byline will not render */}
           {byline && <p class="text-right">By {byline}</p> }
           <p>{abstract}</p>
           <ul class="list-inline list-unstyled">
