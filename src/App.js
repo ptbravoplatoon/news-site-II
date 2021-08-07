@@ -7,7 +7,7 @@ import {BrowserRouter as Router, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage.js';
 import ArticlePage from './pages/ArticlePage.js';
 
-// Test
+// Test edit to functional
 class App extends Component {
   constructor(props) {
     super(props);
