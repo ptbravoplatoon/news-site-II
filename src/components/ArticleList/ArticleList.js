@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import ArticleTeaser from '../ArticleTeaser/ArticleTeaser.js'
 
-class ArticleList extends Component {
-  render() {
+const ArticleList = (props) => {
 
-    const { articles, handleTitleClick } = this.props;
+  const { articles, handleTitleClick } = props;
 
-    return (
+  return (
       <div>
         {articles.map((article, index) => 
           <ArticleTeaser 
@@ -17,7 +16,5 @@ class ArticleList extends Component {
         )}
       </div>
     );
-  }
 }
-
 export default ArticleList;

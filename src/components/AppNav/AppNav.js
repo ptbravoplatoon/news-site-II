@@ -7,31 +7,7 @@ import {
   Nav,
   NavItem,
   NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  NavbarText
 } from 'reactstrap';
-
-
-// class AppNav extends Component {
-//   render() {
-//     const { navItems, handleNavClick } = this.props;
-
-//     return (
-//       <nav>
-//         {navItems.map((navItem) =>
-//           <a href="#" onClick={ () => handleNavClick(navItem.value)} >
-//             {navItem.label} |
-//           </a>
-//         )}
-//       </nav>
-//     )
-//   }
-// }
-
-// 
 
 function AppNav({ navItems, handleNavClick }) {
   const [isOpen, setIsOpen] = useState(false);
